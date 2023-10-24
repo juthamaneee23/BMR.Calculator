@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <div class="container">
+    </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณค่าBMR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="https://sci.skru.ac.th/science/index.php">คอมพิวเตอร์ศึกษา</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+        <h1> BMR Calculator</h1>
+        <div class="form-group row">
+            <label for="gender" class="col-sm-2 col-form-label">เพศ</label>
+
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-chrck-input" id="gender" value="M">
+                <label class="form-check-label" for="gender">ชาย</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-chrck-input" id="gender" value="F">
+                <label class="form-check-label" for="gender">หญิง</label>
+            </div>
+
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="age" class="col-sm-2 col-form-label">อายุ</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" id="age" value="12" min="3" max="100" onblur="check_age()">
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="height" class="col-sm-2 col-form-label">ส่วนสูง</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" id="height" value="180" min="100" max="200"
+                    onblur="check_heiht()">
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="Wight" class="col-sm-2 col-form-label">นํ้าหนัก</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control" id="Wight" value="50" min="15" max="100"
+                    onblur="check_wight()">
+            </div>
+        </div>
+
+    <br>
+    <div class="form-group row">
+        <label for="activity" class="col-sm-2 col-from-label">กิจกรรม</label>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>ออกกำลังกายน้อยหรือไม่ได้ออก</option>
+            <option value="1">ออกกำลังกายเบาๆ 1-3ครั้ง/สัปดาห์</option>
+            <option value="2">ออกกำลังกายเป็นประจำทุกวันหรือออกกลังกายหนักๆ 3-4คร้ง/สัปดาห์</option>
+            <option value="3">ออกกำลังกายอย่างหนัก 6-7ครั้ง/สัปดาห์</option>
+        </select>
+
+    </div class="result-message">
+    <Span class = "calories">1,640</Span>calories/day
+    </div>       
+    
+
+    <br>
+        <button type="button" onclick="calculate()" class="btn btn-primary">Calculate</button>
+        <button type="reset" class="btn btn-secondary">Clear</button>
+
+    <div class="col">
+        <h4>
+
+            <p id="demo"></p>
+            <p id="status"></p>
+            <p id="warning_eag"></p>
+            <p id="warning_height"></p>
+            <p id="warning_weight"></p>
+        </h4>
+
+        <div id="chart_div" style="width: 600px; height: 220px;"></div>
+    </div>
+    <div class="w-100"></div>
+    </div>
+    </div>
+
+
+
+    <script>
+        function calculate() { }
+        let calories = document.querySelector(".bmr-calculator .result .calories");
+        let calculator = document.querySelector(".bmr-calculator .result .calculate-btn");
+        let age = document.querySelector(".bmr-calculator from #age");
+        let height = document.querySelector(".bmr-calculator from #height");
+        let weight = document.querySelector(".bmr-calculator from #weight");
+
+        //BMR = 66+(13.7*50)+(5*180)-(6.8*12)
+        //BMR = 665+(9.6*50)+(1.8*180)-(4.7*12)
+
+        let calculateBMR = (weight, height, age, gender) => {
+           if (gender == "male") {
+                return 66 + (13.7 * 50) + (5 * 180) - (6.8 * 12);
+
+                return 665 + (9.6 * 50) + (1.8 * 180) - (4.7 * 12);
+
+            }
+        };
+
+        calculateBtn.addEventListener("clik", () => {
+            let genderValue = document.querySelector(".bmr-calculator from input[name='gender']:checked"
+            ).value;
+
+            let BMR = calculateBMR(weight.value, height.value, age.value, genderValue);
+        });
+
+        calories.innerHTML = BMR.toLocalestring("en-US");
+
+    </script>
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
